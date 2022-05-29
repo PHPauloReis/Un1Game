@@ -1,15 +1,16 @@
 <template>
   <button
     :class="{
+      'button': true,
       'double_padding': doublePadding,
       'active': active,
-      'disabled': disabled,
       'success': type === 'success',
       'danger': type === 'danger',
+      'disabled': disabled,
     }"
     @click="triggerEvent()"
   >
-    <Icon v-if="showIcon" :color="iconColor" :type="iconType" />
+    <Icon v-if="showIcon" :color="!disabled ? iconColor : '#BFBFBF'" :type="iconType" />
     {{ title }}
   </button>
 </template>
@@ -66,14 +67,25 @@ export default {
       required: false,
       default: null,
     },
+    value: {
+      type: [String, Number],
+      required: false,
+      default: null,
+    },
   },
   components: {
     Icon,
   },
   methods: {
     triggerEvent() {
-      if (!this.disabled && !this.active && this.event) {
-        this.$root.$emit('selected-game-mode', this.event);
+      if (!this.disabled && !this.active && this.event && this.value) {
+        if (this.event === 'selected-game-mode') {
+          this.$root.$emit('selected-game-mode', `selected-${this.value}`);
+        }
+
+        if (this.event === 'selected-option-value') {
+          this.$root.$emit('selected-option-value', this.value);
+        }
       }
     },
   },

@@ -3,28 +3,28 @@
     <h2 class="title">Selecione um modo de Jogo:</h2>
     <div class="game-mode-buttons-container">
       <Button
-        class="button"
         double-padding
         title="Fácil"
-        event="selected-easy"
+        event="selected-game-mode"
+        value="easy"
         :active="gameModeSelected === 'selected-easy'"
         :disabled="gameModeSelected && gameModeSelected !== 'selected-easy'"
       />
 
       <Button
-        class="button"
         double-padding
         title="Normal"
-        event="selected-normal"
+        event="selected-game-mode"
+        value="normal"
         :active="gameModeSelected === 'selected-normal'"
         :disabled="gameModeSelected && gameModeSelected !== 'selected-normal'"
       />
 
       <Button
-        class="button"
         double-padding
         title="Difícil"
-        event="selected-hard"
+        event="selected-game-mode"
+        value="hard"
         :active="gameModeSelected === 'selected-hard'"
         :disabled="gameModeSelected && gameModeSelected !== 'selected-hard'"
       />
@@ -84,11 +84,9 @@ export default {
         this.gameModeSelected = null;
       } else {
         this.gameModeSelected = gameMode;
+        this.$store.commit('setRandomNumber');
       }
     });
-  },
-  destroyed() {
-    this.$root.$on('selected-game-mode');
   },
 };
 

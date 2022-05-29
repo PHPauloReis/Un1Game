@@ -1,7 +1,7 @@
 <template>
   <main>
     <SelectGameMode />
-    <GameBoard v-if="selectedGameMode" />
+    <GameBoard />
   </main>
 </template>
 
@@ -18,21 +18,7 @@ export default {
   },
   data() {
     return {
-      selectedGameMode: false,
     };
-  },
-  mounted() {
-    this.$root.$on('selected-game-mode', () => {
-      this.selectedGameMode = true;
-    });
-
-    this.$root.$on('selected-game-mode', (gameMode) => {
-      if (gameMode === 'selected-reload') {
-        this.selectedGameMode = false;
-      } else {
-        this.selectedGameMode = true;
-      }
-    });
   },
 };
 
