@@ -1,15 +1,20 @@
 <template>
-  <Header />
+  <div>
+    <Button
+      title="10"
+      type="primary"
+    />
+  </div>
 </template>
 
 <script>
 
-import Header from '@/components/Header.vue';
+import Button from '@/components/Button.vue';
 
 export default {
   name: 'HomeView',
   components: {
-    Header,
+    Button,
   },
 };
 
