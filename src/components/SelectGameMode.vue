@@ -29,6 +29,8 @@
         :disabled="gameModeSelected && gameModeSelected !== 'selected-hard'"
       />
     </div>
+
+    <hr>
   </section>
 </template>
 
@@ -36,10 +38,12 @@
 
 .game-mode-container {
   width: 100%;
+  margin-bottom: 70px;
 }
 
 .game-mode-container .button {
-  margin: 0 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .game-mode-container .title {
@@ -50,6 +54,12 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  margin-bottom: 50px;
+}
+
+hr {
+  border: none;
+  border-bottom: 3px solid #ECECEC;
 }
 
 </style>
@@ -70,8 +80,15 @@ export default {
   },
   mounted() {
     this.$root.$on('selected-game-mode', (gameMode) => {
-      this.gameModeSelected = gameMode;
+      if (gameMode === 'selected-reload') {
+        this.gameModeSelected = null;
+      } else {
+        this.gameModeSelected = gameMode;
+      }
     });
+  },
+  destroyed() {
+    this.$root.$on('selected-game-mode');
   },
 };
 

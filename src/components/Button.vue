@@ -1,14 +1,15 @@
 <template>
   <button
-    class="button"
     :class="{
       'double_padding': doublePadding,
       'active': active,
-      'disabled': disabled
+      'disabled': disabled,
+      'success': type === 'success',
+      'danger': type === 'danger',
     }"
     @click="triggerEvent()"
   >
-    <Icon v-if="showIcon" :color="iconColor" type="reload" />
+    <Icon v-if="showIcon" :color="iconColor" :type="iconType" />
     {{ title }}
   </button>
 </template>
@@ -49,6 +50,11 @@ export default {
       type: String,
       required: false,
       default: '#333333',
+    },
+    iconType: {
+      type: String,
+      required: false,
+      default: '',
     },
     doublePadding: {
       type: Boolean,
@@ -93,6 +99,8 @@ export default {
   text-align: center;
   display: flex;
   align-items: center;
+  margin-top: 0;
+  margin-bottom: 3px;
 
   /**
    * Desabilita a seleção de textos dentro do botão
@@ -117,6 +125,7 @@ export default {
 
 .button:active {
   margin-top: 3px !important;
+  margin-bottom: 0 !important;
   box-shadow: none !important;
 }
 
