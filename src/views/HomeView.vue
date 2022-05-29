@@ -1,20 +1,15 @@
 <template>
-  <div>
-    <Button
-      title="10"
-      type="primary"
-    />
-  </div>
+  <SelectGameMode />
 </template>
 
 <script>
 
-import Button from '@/components/Button.vue';
+import SelectGameMode from '@/components/SelectGameMode.vue';
 
 export default {
   name: 'HomeView',
   components: {
-    Button,
+    SelectGameMode,
   },
 };
 

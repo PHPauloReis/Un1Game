@@ -41,8 +41,9 @@ body {
 
 .container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  width: 892px;
+  margin: 0 auto;
 }
 
 </style>

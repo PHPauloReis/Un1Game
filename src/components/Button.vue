@@ -1,8 +1,16 @@
 <template>
-  <div class="button">
-    <Icon :color="iconColor" type="reload" />
+  <button
+    class="button"
+    :class="{
+      'double_padding': doublePadding,
+      'active': active,
+      'disabled': disabled
+    }"
+    @click="triggerEvent()"
+  >
+    <Icon v-if="showIcon" :color="iconColor" type="reload" />
     {{ title }}
-  </div>
+  </button>
 </template>
 
 <script>
@@ -32,20 +40,47 @@ export default {
       required: false,
       default: false,
     },
+    showIcon: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     iconColor: {
       type: String,
       required: false,
       default: '#333333',
     },
+    doublePadding: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    event: {
+      type: String,
+      required: false,
+      default: null,
+    },
   },
   components: {
     Icon,
+  },
+  methods: {
+    triggerEvent() {
+      if (!this.disabled && !this.active && this.event) {
+        this.$root.$emit('selected-game-mode', this.event);
+      }
+    },
   },
 };
 
 </script>
 
 <style scoped>
+
+.double_padding {
+  padding-left: 55px !important;
+  padding-right: 55px !important;
+}
 
 .button {
   background-color: #FFF;
@@ -59,6 +94,9 @@ export default {
   display: flex;
   align-items: center;
 
+  /**
+   * Desabilita a seleção de textos dentro do botão
+   */
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
@@ -78,7 +116,7 @@ export default {
 }
 
 .button:active {
-  margin-top: 3px;
+  margin-top: 3px !important;
   box-shadow: none !important;
 }
 
@@ -90,7 +128,14 @@ export default {
 }
 
 .active:hover {
-  background-color: #B5E8FC;
+  background: #DBF4FE !important;
+  box-shadow: 0px 3px 0px #78D9FC !important;
+}
+
+.active:active {
+  margin-top: 0 !important;
+  background: #DBF4FE !important;
+  box-shadow: 0px 3px 0px #78D9FC !important;
 }
 
 .disabled {
@@ -101,11 +146,11 @@ export default {
 }
 
 .disabled:hover {
-  background-color: #E5E5E5;
+  background-color: #E5E5E5 !important;
 }
 
 .disabled:active {
-  margin-top: 0;
+  margin-top: 0 !important;
   box-shadow: 0px 3px 0px #D9D9D9 !important;
 }
 
